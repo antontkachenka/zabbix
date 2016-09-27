@@ -1,0 +1,8 @@
+---
+# tasks file for zabbix_agent
+
+    - name: Install zabbix-agent
+      yum: name=zabbix-agent state=present
+
+    - name: Run zabbix-agent
+      service: name=zabbix-agent state=running

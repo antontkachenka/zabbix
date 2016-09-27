@@ -1,0 +1,27 @@
+---
+# tasks file for mysql
+
+    - name: Install mysql
+      yum: name={{ item }} state=present
+      with_items: 
+        - mysql
+        - mysql-server
+    
+    - name: install mysqlphp
+      yum: name=MySQL-python state=present    
+
+    - shell: /usr/bin/mysql_install_db --user=mysql
+   
+    - name: Start mysql
+      service: name=mysqld state=running
+    
+    - name: Creating database
+      mysql_db:
+         name: zabbix
+         encoding: utf8
+         collation: utf8_bin   
+         state: present 
+    
+    - name: Creating user
+      mysql_user: name=zabbix password=zabbix priv=zabbix.*:ALL,GRANT state=present
+     
